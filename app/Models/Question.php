@@ -30,5 +30,18 @@ class Question extends Model
     {
         return $this->created_at->diffForHumans();
     }
+
+    //funzione per cambiare colore agli status, collegato a scss
+    public function getStatusAttribute()
+    {
+        if ($this->answers > 0) {
+            if ($this->best_answer_id) {
+                return "answered-accepted";
+            }
+            return "answered";
+        }
+
+        return "unanswered";
+    }
     
 }

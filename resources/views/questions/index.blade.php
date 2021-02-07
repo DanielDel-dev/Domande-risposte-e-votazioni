@@ -14,10 +14,10 @@
                                 <div class="vote mb-4">
                                     <strong>{{ $question->votes }}</strong> {{ Str::plural('vote', $question->votes) }}
                                 </div>
-                                <div class="status">
+                                <div class="status {{ $question->status }}">
                                     <strong>{{ $question->answers }}</strong> {{ Str::plural('answer', $question->answers) }}
                                 </div>
-                                <div class="view">
+                                <div class="view mt-3">
                                     {{ $question->views . " " . Str::plural('view', $question->views) }}
                                 </div>
                             </div>
