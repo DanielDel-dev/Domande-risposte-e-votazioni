@@ -20,17 +20,23 @@
                         <div class="media">
                             <div class="d-flex flex-column counters mr-4 text-center">
                                 <div class="vote mb-4">
-                                    <strong>{{ $question->votes }}</strong> {{ Str::plural('vote', $question->votes) }}
+                                    <p class="stat mb-1">{{ $question->votes }}</p> 
+                                    <p>{{ Str::plural('vote', $question->votes) }}</p>
                                 </div>
                                 <div class="status {{ $question->status }}">
-                                    <strong>{{ $question->answers }}</strong> {{ Str::plural('answer', $question->answers) }}
+                                    <p class="stat mb-1">{{ $question->answers }}</p> {{ Str::plural('answer', $question->answers) }}
                                 </div>
                                 <div class="view mt-3">
                                     {{ $question->views . " " . Str::plural('view', $question->views) }}
                                 </div>
                             </div>
                             <div class="media-body">
-                                <h3 class="mt-0"> <a href="{{ $question->url }}">{{ $question->title }}</a></h3>
+                                <div class="d-flex align-intems center">
+                                    <h3 class="mt-0"> <a href="{{ $question->url }}">{{ $question->title }}</a></h3>
+                                    <div class="ml-auto">
+                                        <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-info">Edit</a>
+                                    </div>
+                                </div>
                                 <p class="lead"> 
                                     Asked by 
                                     <a href="{{ $question->user->url }}">{{ $question->user->name }}</a>

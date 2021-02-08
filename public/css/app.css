@@ -10950,9 +10950,9 @@ a.text-dark:focus {
   height: 60px;
 }
 
-strong {
+.stat {
   display: block;
-  font-size: 1em;
+  font-size: 1.7em;
 }
 
 .status.unanswered {
