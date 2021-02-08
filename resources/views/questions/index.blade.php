@@ -5,9 +5,17 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h2>All Questions</h2>
+                        <div class="ml-auto">
+                            <a href="{{ route('questions.create') }}" class="btn btn-outline-secondary">Ask Question</a>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="card-body">
+                    <x-_messages></x-_messages>
                     @foreach ($questions as $question)
                         <div class="media">
                             <div class="d-flex flex-column counters mr-4 text-center">
