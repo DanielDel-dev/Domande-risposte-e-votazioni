@@ -26,3 +26,12 @@
         color: $color-white;
     }
 }
+
+.alert-pers{
+    opacity: 1;
+    transition: all 1s;
+}
+
+.alert-persTime{
+    opacity: 0;
+}

@@ -1882,6 +1882,8 @@ __webpack_require__.r(__webpack_exports__);
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./script */ "./resources/js/script.js");
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js").default;
 /**
  * The following block of code may be used to automatically register your
@@ -1947,6 +1949,23 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/script.js":
+/*!********************************!*\
+  !*** ./resources/js/script.js ***!
+  \********************************/
+/***/ (() => {
+
+var alertTime = setTimeout(function () {
+  var alert = document.querySelector(".alert-pers");
+  alert.classList.add("alert-persTime");
+  setTimeout(function () {
+    var alertPar = document.querySelector(".alert-persTime");
+    alertPar.style.display = "none";
+  }, 1000);
+}, 3000);
 
 /***/ }),
 

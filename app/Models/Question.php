@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Parsedown;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Question extends Model
 {
@@ -17,8 +18,8 @@ class Question extends Model
 
     public function setTitleAtribute($value)
     {
-        $this->attributes['title'] = $value;
-        $this->attributes['slug'] = str_slug($value);
+        // $this->attributes['title'] = $value;
+        // $this->attributes['slug'] = str_slug($value);
     }
 
     public function getUrlAttribute()
@@ -42,6 +43,11 @@ class Question extends Model
         }
 
         return "unanswered";
+    }
+
+    public function getBodyHtmlAttribute()
+    {
+        return \Parsedown::instance()->text($this->body);
     }
     
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\AskQuestionRequest;
 
 class QuestionsController extends Controller
@@ -27,9 +29,16 @@ class QuestionsController extends Controller
      */
     public function create()
     {
-        $question = new Question();
+        if (Auth::id()) {
+            $question = new Question();
 
-        return view('questions.create', compact($question));
+            return view('questions.create', compact($question));
+
+        } else {
+
+            return view('auth.login');
+        }
+        
     }
 
     /**
@@ -42,6 +51,7 @@ class QuestionsController extends Controller
     {
         $request->user()->questions()->create($request->only('title', 'body'));
 
+
         return redirect()->route('questions.index')->with('success', "Question has been submitted"); 
     }
 
@@ -53,7 +63,8 @@ class QuestionsController extends Controller
      */
     public function show(Question $question)
     {
-      
+
+      return view('questions.show', compact('question'));
     }
 
     /**
@@ -64,6 +75,9 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
+        if (!Gate::allows('update-question', $question)) {
+            abort(403,"Accesso negato");
+        }
         return view('questions.edit', compact('question'));
     }
 
@@ -76,6 +90,10 @@ class QuestionsController extends Controller
      */
     public function update(AskQuestionRequest $request, Question $question)
     {
+        if (!Gate::allows('update-question', $question)) {
+            abort(403,"Accesso negato");
+        }
+
         $question->update($request->only('title', 'body'));
 
         return redirect('/questions')->with('success', "Question has been updated");
@@ -89,6 +107,12 @@ class QuestionsController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        if (!Gate::allows('delete-question', $question)) {
+            abort(403,"Accesso negato");
+        }
+
+        $question->delete();
+
+        return redirect('/questions')->with('success', "Question has been deleted");
     }
 }

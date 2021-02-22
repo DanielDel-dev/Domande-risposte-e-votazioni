@@ -18,8 +18,8 @@
                     <form action="{{ route('questions.store') }}" method="post">
                         <x-form 
                         buttonText="Ask Question"
-                        title="{{ $question['title'] }}"
-                        body="{{ $question['body'] }}"
+                        title=""
+                        body=""
                         />
                     </form>
 
