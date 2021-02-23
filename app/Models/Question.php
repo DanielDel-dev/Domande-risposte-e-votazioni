@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Parsedown;
+use App\Models\Answer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -35,7 +36,7 @@ class Question extends Model
     //funzione per cambiare colore agli status, collegato a scss
     public function getStatusAttribute()
     {
-        if ($this->answers > 0) {
+        if ($this->answers_count > 0) {
             if ($this->best_answer_id) {
                 return "answered-accepted";
             }
@@ -48,6 +49,11 @@ class Question extends Model
     public function getBodyHtmlAttribute()
     {
         return \Parsedown::instance()->text($this->body);
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
     }
     
 }

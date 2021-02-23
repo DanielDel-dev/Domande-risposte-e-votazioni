@@ -24,7 +24,7 @@
                                     <p>{{ Str::plural('vote', $question->votes) }}</p>
                                 </div>
                                 <div class="status {{ $question->status }}">
-                                    <p class="stat mb-1">{{ $question->answers }}</p> {{ Str::plural('answer', $question->answers) }}
+                                    <p class="stat mb-1">{{ $question->answers_count }}</p> {{ Str::plural('answer', $question->answers_count) }}
                                 </div>
                                 <div class="view mt-3">
                                     {{ $question->views . " " . Str::plural('view', $question->views) }}
@@ -34,20 +34,25 @@
                                 <div class="d-flex align-intems center">
                                     <h3 class="mt-0"> <a href="{{ route('questions.show', $question) }}">{{ $question->title }}</a></h3>
                                     <div class="ml-auto">
-                                        @if (Auth::user()->can('update-question', $question))
-    
-                                        <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-info">Edit</a>
+
+                                        @if (!Auth::user())
+                                            {{-- non può moficare e ne cancellare --}}
+                                        @else
                                         
-                                        @endif
+                                            @if (Auth::user()->can('update-question', $question))
+                                            <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-info">Edit</a>
+                                            @endif
 
-                                        @if (Auth::user()->can('delete-question', $question))
- 
-                                        <form class="d-inline" action="{{ route('questions.destroy', $question->id) }}" method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are tou sure?')">Delete</button>
-                                        </form>
+                                            @if (Auth::user()->can('delete-question', $question))
+                                        
+                                            <form class="d-inline" action="{{ route('questions.destroy', $question->id) }}" method="post">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are tou sure?')">Delete</button>
+                                            </form>
 
+                                            @endif
+                                            
                                         @endif
                                     </div>
                                 </div>
@@ -56,7 +61,7 @@
                                     <a href="{{ $question->user->url }}">{{ $question->user->name }}</a>
                                     <small class="text-muted">{{ $question->created_date }}</small>
                                 </p>
-                                {{ Str::limit($question->body, 250) }}
+                                {{ Str::limit($question->body, 25) }}
                             </div>
                         </div>
                         <hr>
