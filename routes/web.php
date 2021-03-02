@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AnswersController;
 use App\Http\Controllers\QuestionsController;
 
 /*
@@ -26,3 +27,5 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('questions', QuestionsController::class)->except('show');
 
 Route::get('/questions/{question:title}', [QuestionsController::class, 'show'])->name('questions.show');
+
+Route::resource('questions.answers', AnswersController::class)->except('index', 'create', 'show');

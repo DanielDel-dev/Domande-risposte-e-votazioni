@@ -12,6 +12,8 @@ class Answer extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['body', 'user_id'];
+
     public function question()
     {
         return $this->belongsTo(Question::class);
@@ -20,6 +22,11 @@ class Answer extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 
     //converte i dati in html
@@ -37,6 +44,12 @@ class Answer extends Model
 
             $answer->question->increment('answers_count');
 
+        });
+
+        static::deleted(function ($answer){
+
+            $answer->question->decrement('answers_count');
+            
         });
     }
 }
