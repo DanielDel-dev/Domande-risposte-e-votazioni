@@ -17,7 +17,7 @@
                             <a title="This question is not useful" class="vote-down off">
                                 <i class="material-icons">keyboard_arrow_down</i>
                             </a>
-                            <a title="Best answer" class="vote-accepted mt-2">
+                            <a title="Best answer" class="{{ $answer->status }} mt-2">
                                 <i class="material-icons">check</i>
                             </a>
                         </div>

@@ -47,9 +47,18 @@ class Answer extends Model
         });
 
         static::deleted(function ($answer){
+            $question = $answer->question;
+            $question->decrement('answers_count');
+            if ($question->best_answer_id === $answer->id) {
 
-            $answer->question->decrement('answers_count');
-            
+                $question->best_answer_id = null;
+                $question->save();
+            }
         });
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this->id === $this->question->best_answer_id ? 'vote-accepted' : '';
     }
 }
